@@ -4,6 +4,7 @@ set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
 APP="$1"; IMAGE="dokku/$APP"
 
 APP_URL=$(cat $DOKKU_ROOT/$APP/URL)
-id=$(echo "export APP_URL=$APP_URL" | docker run -i -a stdin $IMAGE /bin/bash -c "cat > /app/.profile.d/app_url.sh")
+
+id=$(echo "export APP_URL=$APP_URL" | docker run -i -a stdin $IMAGE /bin/bash -c "cat > /app/.profile.d/git_rev.sh")
 test $(docker wait $id) -eq 0
 docker commit $id $IMAGE > /dev/null

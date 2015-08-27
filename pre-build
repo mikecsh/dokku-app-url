@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
+
+APP="$1"
+
+echo "-----> Injecting APP_URL"
+APP_URL=$(dokku url $APP)
+dokku config:set $APP APP_URL="$APP_URL"
